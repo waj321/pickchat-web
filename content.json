@@ -1,0 +1,365 @@
+{
+  "schemaVersion": "1.5.1",
+  "site": {
+    "language": "zh-CN",
+    "title": "PickChat｜在聊天里，完成一切。",
+    "description": "PickChat 是住在聊天里的私人 Agent，也是一款让对话直接通往行动的 AI 即时通信软件。",
+    "themeColor": "#07090d"
+  },
+  "brand": {
+    "name": "PickChat",
+    "homeLabel": "返回页面顶部"
+  },
+  "accessibility": {
+    "skipLink": "跳到主要内容",
+    "mainLabel": "PickChat 产品介绍",
+    "navigationLabel": "页面导航",
+    "menuOpenLabel": "打开页面导航",
+    "menuCloseLabel": "关闭页面导航",
+    "progressLabel": "页面阅读进度"
+  },
+  "navigation": {
+    "items": [
+      {
+        "label": "转机",
+        "target": "turning-point"
+      },
+      {
+        "label": "三重智能",
+        "target": "engines"
+      },
+      {
+        "label": "三大壁垒",
+        "target": "moats"
+      },
+      {
+        "label": "未来社交",
+        "target": "future-social"
+      },
+      {
+        "label": "内测",
+        "target": "testflight"
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "sectionLabel": "产品定位",
+      "eyebrow": {
+        "brand": "PickChat",
+        "descriptor": "私人 Agent · AI 即时通信"
+      },
+      "slogans": {
+        "opening": "聊天，不只是聊天。",
+        "category": "AI 时代的即时通信",
+        "primary": "在聊天里，完成一切。"
+      },
+      "description": "你的私人 Agent，住在 AI 即时通信里——识别任务、自动执行、替你把话说完。最好的辅助，是无感的。",
+      "actions": [
+        {
+          "label": "了解 PickChat",
+          "target": "product-film",
+          "style": "primary"
+        },
+        {
+          "label": "TestFlight 内测",
+          "target": "testflight",
+          "style": "secondary"
+        }
+      ],
+      "scrollCue": "向下探索",
+      "scrollTarget": "product-film",
+      "demo": {
+        "ariaLabel": "PickChat 在聊天中识别并执行任务的界面示意",
+        "label": "就地执行",
+        "status": "Agent 就绪",
+        "messageLabel": "好友消息",
+        "message": "周六下午三点，上海西岸美术馆见。帮我把看展、滨江散步和晚饭排成一个半日行程。",
+        "actionLabel": "已识别 3 个行动",
+        "actions": [
+          "查看周六下午三点日历",
+          "在地图中查看上海西岸美术馆",
+          "规划半日行程"
+        ],
+        "resultLabel": "Agent 回流",
+        "result": "周六西岸美术馆半日行程"
+      }
+    },
+    "productFilm": {
+      "sectionLabel": "PickChat 产品完整演示",
+      "media": {
+        "type": "video",
+        "src": "videos/pickchat-product-demo.mp4?v=20260824-2",
+        "mimeType": "video/mp4",
+        "poster": "images/pickchat-product-demo-poster.jpg?v=20260824-2",
+        "fallbackSrc": "images/pickchat-product-demo-poster.jpg?v=20260824-2",
+        "alt": "PickChat 任务识别、Agent 执行、天气结果、智能回复、智能延续与智能补全的完整产品演示",
+        "ariaLabel": "播放 PickChat 二十四秒完整产品演示",
+        "playLabel": "播放 PickChat 二十四秒完整产品演示",
+        "replayLabel": "重新播放 PickChat 产品演示",
+        "variant": "film",
+        "fit": "contain",
+        "autoplay": false,
+        "loop": false,
+        "controls": true,
+        "preload": "none"
+      }
+    },
+    "pain": {
+      "sectionLabel": "01 · 对话之外",
+      "title": "对话是意图的源头，却是执行的孤岛",
+      "body": "约饭要定时间、定地点、查路线、订位子——这些事都诞生在对话里，却要你一次次跳出对话去办，再搬运回来。",
+      "visual": {
+        "src": "images/pain-island.svg",
+        "alt": "消息气泡里的意图被分散到多个应用的抽象示意",
+        "badge": "意图从这里出发",
+        "items": [
+          "时间",
+          "地点",
+          "路线",
+          "订位"
+        ],
+        "caption": "一次次跳出，一次次搬运回来。"
+      }
+    },
+    "turningPoint": {
+      "sectionLabel": "02 · 转机",
+      "title": "PickChat 让这个孤岛消失",
+      "body": "好友一句「周六下午三点，上海西岸美术馆见。帮我把看展、滨江散步和晚饭排成一个半日行程。」——消息旁自动出现三个行动胶囊：查看周六下午三点日历 · 在地图中查看上海西岸美术馆 · 规划半日行程。点一下，Agent 就地执行，完成结果「周六西岸美术馆半日行程」直接回到对话；需要继续查看时，再从结果进入完整任务。对话再也不是孤岛。",
+      "visual": {
+        "src": "images/action-capsules.svg",
+        "alt": "一条消息旁出现三个可执行行动胶囊的产品界面示意",
+        "media": {
+          "type": "image",
+          "src": "images/task-highlight.jpg?v=20260824-2",
+          "alt": "PickChat 从消息中识别任务与行动胶囊的红框重点图",
+          "variant": "stage-focus",
+          "fit": "contain"
+        },
+        "badge": "对话内行动",
+        "messageLabel": "收到消息",
+        "message": "周六下午三点，上海西岸美术馆见。帮我把看展、滨江散步和晚饭排成一个半日行程。",
+        "actionLabel": "Agent 已识别",
+        "actions": [
+          "查看周六下午三点日历",
+          "在地图中查看上海西岸美术馆",
+          "规划半日行程"
+        ],
+        "result": "周六西岸美术馆半日行程"
+      },
+      "stories": [
+        {
+          "eyebrow": "天气结果 · 原地返回",
+          "title": "天气，直接显示在气泡里",
+          "body": "对话里问到时间与地点，PickChat 识别天气意图并执行查询，结果直接回到当前气泡，不需要跳出聊天。",
+          "caption": "真实产品演示 · 天气查询与结果回流",
+          "media": {
+            "type": "image",
+            "src": "images/weather-highlight.jpg?v=20260824-2",
+            "alt": "PickChat 在对话中直接返回上海天气结果的红框重点图",
+            "variant": "phone",
+            "fit": "contain"
+          }
+        },
+        {
+          "eyebrow": "任务完成 · 继续深入",
+          "title": "从结果胶囊，进入完整 Agent 任务",
+          "body": "行程完成后，点一下结果胶囊即可进入 AI 任务页，继续查看完整的看展与晚餐安排。",
+          "caption": "真实产品演示 · 完成结果与 AI 任务页衔接",
+          "media": {
+            "type": "video",
+            "src": "videos/agent-capsule-focus.mp4?v=20260824-4",
+            "mimeType": "video/mp4",
+            "poster": "images/agent-capsule-focus-poster.jpg?v=20260824-4",
+            "fallbackSrc": "images/agent-capsule-focus-poster.jpg?v=20260824-4",
+            "alt": "PickChat Agent 任务页内完整的看展、散步与晚餐行程内容",
+            "ariaLabel": "PickChat Agent 任务页内完整行程内容的演示视频",
+            "variant": "agent-focus",
+            "fit": "contain",
+            "autoplay": true,
+            "loop": true
+          }
+        }
+      ]
+    },
+    "principle": {
+      "sectionLabel": "03 · 边界",
+      "titleLines": [
+        "我们从不替你去社交，",
+        "只替你消掉社交里那些",
+        "重复、琐碎与不必要的摩擦"
+      ],
+      "body": "你仍然是聊天的主角。识别任务、自动执行、推荐回复——Agent 做的，是把过去需要你亲自动手的每一小步，变成一次自动完成。"
+    },
+    "engines": {
+      "sectionLabel": "04 · 三重智能",
+      "title": "一条消息的前、中、后，都由智能接住",
+      "body": "智能回复接住收到消息的一刻，智能补全接住输入过程，智能延续接住发送后的下一步。三者连续发生，但各自解决不同瞬间。",
+      "items": [
+        {
+          "anchor": "smart-reply",
+          "side": "接收时 · 第一个建议",
+          "title": "智能回复",
+          "body": "收到别人发来的信息后，首个建议词或句随上下文弹出，让你一触即答。",
+          "demo": {
+            "caption": "收到消息后，首个智能回复随即出现。",
+            "media": {
+              "type": "video",
+              "src": "videos/smart-reply-full-demo.mp4?v=20260824-7",
+              "mimeType": "video/mp4",
+              "poster": "images/smart-reply-full-demo-poster.jpg?v=20260824-7",
+              "fallbackSrc": "images/smart-reply-full-demo-poster.jpg?v=20260824-7",
+              "alt": "PickChat 收到消息、选中智能回复并发送的完整手机演示",
+              "ariaLabel": "PickChat 智能回复从出现到发送的完整手机演示视频",
+              "variant": "reply-phone",
+              "fit": "contain",
+              "autoplay": true,
+              "loop": true
+            }
+          }
+        },
+        {
+          "anchor": "smartinput",
+          "side": "输入时 · 自动补全",
+          "title": "智能补全",
+          "body": "你开始打字时，PickChat 基于本地记忆与当前上下文自动补全未说完的话。",
+          "demo": {
+            "caption": "输入半句，智能补全把表达自然续上。",
+            "media": {
+              "type": "video",
+              "src": "videos/smart-completion-full-demo.mp4?v=20260824-7",
+              "mimeType": "video/mp4",
+              "poster": "images/smart-completion-full-demo-poster.jpg?v=20260824-7",
+              "fallbackSrc": "images/smart-completion-full-demo-poster.jpg?v=20260824-7",
+              "alt": "PickChat 智能补全建议弹出、选中、发送并进入对话的完整手机演示",
+              "ariaLabel": "PickChat 智能补全从建议弹出到发送的完整手机演示视频",
+              "variant": "completion-phone",
+              "fit": "contain",
+              "autoplay": true,
+              "loop": true
+            }
+          }
+        },
+        {
+          "anchor": "smart-continuation",
+          "side": "发送后 · 第一个推荐气泡",
+          "title": "智能延续",
+          "body": "你发送消息后，首个推荐气泡立即出现，承接刚刚的表达，自然延续下一句。",
+          "demo": {
+            "caption": "消息发出后，智能延续气泡无缝接上。",
+            "media": {
+              "type": "video",
+              "src": "videos/smart-continuation-full-demo.mp4?v=20260824-7",
+              "mimeType": "video/mp4",
+              "poster": "images/smart-continuation-full-demo-poster.jpg?v=20260824-7",
+              "fallbackSrc": "images/smart-continuation-full-demo-poster.jpg?v=20260824-7",
+              "alt": "PickChat 消息发送后首组智能延续建议出现的完整手机演示",
+              "ariaLabel": "PickChat 智能延续从消息发送到建议出现的完整手机演示视频",
+              "variant": "continuation-phone",
+              "fit": "contain",
+              "autoplay": true,
+              "loop": true
+            }
+          }
+        }
+      ]
+    },
+    "moats": {
+      "sectionLabel": "06 · 三大壁垒",
+      "title": "不是外挂，是底层能力",
+      "body": "从隐私、连接到成本，每一层都为长期使用而设计。",
+      "items": [
+        {
+          "number": "01",
+          "signal": "ON DEVICE",
+          "icon": "privacy",
+          "title": "架构级隐私",
+          "body": "你的聊天、记忆、Agent 记录，默认就留在你手里，不离开设备。"
+        },
+        {
+          "number": "02",
+          "signal": "ONE ENTRY",
+          "icon": "ecosystem",
+          "title": "开放生态",
+          "body": "统一授权 + 任务胶囊，一个入口接起日历、地图、票务、外卖。"
+        },
+        {
+          "number": "03",
+          "signal": "NEAR ZERO",
+          "icon": "device",
+          "title": "端侧成本",
+          "body": "Agent 跑在你的 iPhone 里，AI 执行的边际成本趋近于零。"
+        }
+      ]
+    },
+    "vision": {
+      "sectionLabel": "05 · 愿景",
+      "timelineLabel": "80 后手写，90 后键盘，00 后语音，未来属于 AI 输入。",
+      "timeline": [
+        "80 后手写",
+        "90 后键盘",
+        "00 后语音",
+        "未来属于 AI 输入"
+      ],
+      "statement": "人可以点到即止，AI 替你把话说完。"
+    },
+    "futureSocial": {
+      "sectionLabel": "07 · 未来的社交",
+      "title": "即时通信的下一次跃迁，不是更快，而是更懂你。",
+      "titleLines": [
+        "即时通信的下一次跃迁，",
+        "不是更快，",
+        "而是更懂你。"
+      ],
+      "body": "从写信、传真、短信，到即时通信，速度一次次被改写。来到 AI 即时通信，重复被接管，人的个性被放大。",
+      "timelineLabel": "通信方式从写信到 AI 即时通信的时代演进",
+      "timeline": [
+        {
+          "label": "写信",
+          "pace": "以天计",
+          "caption": "表达跨越距离"
+        },
+        {
+          "label": "传真",
+          "pace": "以分钟计",
+          "caption": "信息开始加速"
+        },
+        {
+          "label": "短信",
+          "pace": "以秒计",
+          "caption": "抵达装进口袋"
+        },
+        {
+          "label": "即时通信",
+          "pace": "实时",
+          "caption": "对话始终在线"
+        },
+        {
+          "label": "AI 即时通信",
+          "pace": "即意图",
+          "caption": "去掉重复，让每一句都更像你"
+        }
+      ]
+    },
+    "testflight": {
+      "sectionLabel": "08 · 内测",
+      "title": "TestFlight 内测进行中",
+      "body": "PickChat 这款 AI 即时通信软件正通过 Apple TestFlight 进行邀请制内测。受测试名额与发布权限限制，我们暂未开放公开下载。若希望加入后续内测，欢迎留下联系方式，我们会在开放时第一时间通知。",
+      "form": {
+        "ariaLabel": "申请加入 PickChat 后续内测",
+        "label": "联系邮箱",
+        "placeholder": "name@example.com",
+        "submitLabel": "申请内测",
+        "helper": "当前为本地申请占位，不会提交或保存任何信息。",
+        "validationMessage": "请填写一个有效的邮箱地址。",
+        "demoMessage": "这是本地演示表单，暂未连接提交服务。"
+      }
+    }
+  },
+  "footer": {
+    "brand": "PickChat",
+    "copyright": "© 2026 PickChat",
+    "contactLabel": "联系方式",
+    "contactValue": "1113476809@qq.com"
+  }
+}
