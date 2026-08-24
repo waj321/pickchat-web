@@ -77,6 +77,33 @@
     return token || fallback;
   }
 
+  function showMediaFallback(frame) {
+    const video = frame?.querySelector("video");
+    video?.pause();
+    if (!frame) return;
+    frame.dataset.sourceFailed = "true";
+    frame.classList.remove("is-loading", "is-poster", "is-ready", "is-playing");
+    frame.classList.add("is-fallback");
+  }
+
+  function mountMediaSource(frame) {
+    if (!frame || frame.dataset.sourceMounted === "true" || frame.dataset.sourceFailed === "true") return false;
+    const video = frame.querySelector("video");
+    if (!video || !isText(frame.dataset.mediaSrc)) return false;
+
+    const videoSource = document.createElement("source");
+    videoSource.src = frame.dataset.mediaSrc;
+    videoSource.type = isText(frame.dataset.mediaMime) ? frame.dataset.mediaMime : "video/mp4";
+    videoSource.addEventListener("error", () => showMediaFallback(frame), { once: true });
+
+    frame.dataset.sourceMounted = "true";
+    frame.classList.remove("is-fallback", "is-ready");
+    frame.classList.add("is-loading", "is-poster");
+    video.append(videoSource);
+    video.load();
+    return true;
+  }
+
   function makeMedia(media, className = "") {
     if (!media || typeof media !== "object") return null;
     const type = media.type === "video" ? "video" : "image";
@@ -97,7 +124,8 @@
     const fallback = document.createElement("img");
     fallback.className = "product-media__fallback";
     fallback.alt = isText(media.alt) ? media.alt : "";
-    fallback.loading = "lazy";
+    fallback.loading = media.loading === "eager" ? "eager" : "lazy";
+    if (media.fetchPriority === "high") fallback.fetchPriority = "high";
     fallback.decoding = "async";
     fallback.width = 1600;
     fallback.height = 1000;
@@ -128,8 +156,11 @@
     }
 
     const video = document.createElement("video");
+    const shouldAutoplay = media.autoplay !== false;
     video.className = "product-media__video";
-    video.autoplay = media.autoplay !== false;
+    // Playback is managed by the viewport observer below. Leaving native autoplay
+    // enabled can start all three feature videos while they are still off screen.
+    video.autoplay = false;
     video.defaultMuted = true;
     video.muted = true;
     video.loop = media.loop !== false;
@@ -140,27 +171,22 @@
     video.setAttribute("muted", "");
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "");
-    if (video.autoplay) video.setAttribute("autoplay", "");
     if (video.loop) video.setAttribute("loop", "");
     if (poster) video.poster = poster;
     const mediaLabel = isText(media.ariaLabel) ? media.ariaLabel : media.alt;
     if (isText(mediaLabel)) video.setAttribute("aria-label", mediaLabel);
     else video.setAttribute("aria-hidden", "true");
 
-    const videoSource = document.createElement("source");
-    videoSource.src = source;
-    videoSource.type = isText(media.mimeType) ? media.mimeType : "video/mp4";
-    video.append(videoSource);
-    frame.dataset.autoplay = String(video.autoplay);
-    frame.classList.add(video.preload === "none" ? "is-ready" : "is-loading");
+    frame.dataset.autoplay = String(shouldAutoplay);
+    frame.dataset.loadMode = video.preload === "none" && !shouldAutoplay ? "manual" : "viewport";
+    frame.dataset.mediaSrc = source;
+    frame.dataset.mediaMime = isText(media.mimeType) ? media.mimeType : "video/mp4";
+    frame.dataset.sourceMounted = "false";
+    frame.classList.add("is-poster");
 
-    const showFallback = () => {
-      video.pause();
-      frame.classList.remove("is-loading");
-      frame.classList.add("is-fallback");
-    };
+    const showFallback = () => showMediaFallback(frame);
     const showVideo = () => {
-      frame.classList.remove("is-loading");
+      frame.classList.remove("is-loading", "is-poster", "is-fallback");
       frame.classList.add("is-ready");
     };
     video.addEventListener("loadeddata", showVideo, { once: true });
@@ -182,7 +208,6 @@
       });
     }
     video.addEventListener("error", showFallback, { once: true });
-    videoSource.addEventListener("error", showFallback, { once: true });
 
     frame.append(video, fallback);
     if (media.autoplay === false && isText(media.playLabel)) {
@@ -192,6 +217,7 @@
       playButton.append(makeElement("span", "product-media__play-icon"));
       playButton.addEventListener("click", () => {
         if (video.ended) video.currentTime = 0;
+        mountMediaSource(frame);
         video.play().catch(() => frame.classList.add("is-paused"));
       });
       video.addEventListener("play", () => {
@@ -826,6 +852,53 @@
     if (!frames.length) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const forceStaticMedia = new URLSearchParams(window.location.search).get("media") === "off";
+    const loadQueue = [];
+    let loadTimer = 0;
+
+    const mediaCanLoad = () =>
+      document.visibilityState === "visible" && !forceStaticMedia && !reduceMotion.matches;
+
+    const removeFromLoadQueue = (frame) => {
+      const index = loadQueue.indexOf(frame);
+      if (index >= 0) loadQueue.splice(index, 1);
+    };
+
+    const runLoadQueue = () => {
+      loadTimer = 0;
+      if (!mediaCanLoad()) return;
+
+      let next = loadQueue.shift();
+      while (
+        next &&
+        (next.dataset.sourceMounted === "true" ||
+          next.dataset.sourceFailed === "true" ||
+          (next.dataset.nearViewport !== "true" && next.dataset.inViewport !== "true"))
+      ) {
+        next = loadQueue.shift();
+      }
+
+      if (next) {
+        mountMediaSource(next);
+        // A visible video should request its first frame immediately. Near-screen
+        // videos keep their lighter metadata preload until they actually enter.
+        if (next.dataset.inViewport === "true") syncFrame(next);
+      }
+      if (loadQueue.length) loadTimer = window.setTimeout(runLoadQueue, 320);
+    };
+
+    const queueMediaLoad = (frame) => {
+      if (
+        !mediaCanLoad() ||
+        frame.dataset.loadMode === "manual" ||
+        frame.dataset.sourceMounted === "true" ||
+        frame.dataset.sourceFailed === "true" ||
+        loadQueue.includes(frame)
+      ) {
+        return;
+      }
+      loadQueue.push(frame);
+      if (!loadTimer) loadTimer = window.setTimeout(runLoadQueue, 0);
+    };
 
     const syncFrame = (frame) => {
       const video = frame.querySelector("video");
@@ -843,6 +916,10 @@
         return;
       }
       if (frame.dataset.autoplay !== "true") return;
+      if (frame.dataset.sourceMounted !== "true") {
+        queueMediaLoad(frame);
+        return;
+      }
       video
         .play()
         .then(() => {
@@ -857,10 +934,22 @@
 
     frames.forEach((frame) => {
       frame.dataset.inViewport = "false";
+      frame.dataset.nearViewport = "false";
       frame.querySelector("video")?.pause();
+      frame.querySelector("video")?.addEventListener("loadeddata", () => syncFrame(frame));
     });
 
     if ("IntersectionObserver" in window) {
+      const loadObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.dataset.nearViewport = String(entry.isIntersecting);
+            if (entry.isIntersecting) queueMediaLoad(entry.target);
+            else if (entry.target.dataset.inViewport !== "true") removeFromLoadQueue(entry.target);
+          });
+        },
+        { threshold: 0, rootMargin: "35% 0px 35% 0px" }
+      );
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -870,15 +959,26 @@
         },
         { threshold: [0, 0.12, 0.4], rootMargin: "8% 0px 8% 0px" }
       );
-      frames.forEach((frame) => observer.observe(frame));
+      frames.forEach((frame) => {
+        loadObserver.observe(frame);
+        observer.observe(frame);
+      });
     } else {
       frames.forEach((frame) => {
+        frame.dataset.nearViewport = "true";
         frame.dataset.inViewport = "true";
+        queueMediaLoad(frame);
         syncFrame(frame);
       });
     }
 
-    const syncAll = () => frames.forEach(syncFrame);
+    const syncAll = () => {
+      frames.forEach((frame) => {
+        if (frame.dataset.nearViewport === "true") queueMediaLoad(frame);
+        syncFrame(frame);
+      });
+      if (mediaCanLoad() && loadQueue.length && !loadTimer) loadTimer = window.setTimeout(runLoadQueue, 0);
+    };
     document.addEventListener("visibilitychange", syncAll);
     reduceMotion.addEventListener?.("change", syncAll);
     syncAll();
