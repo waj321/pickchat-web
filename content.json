@@ -102,7 +102,9 @@
         "autoplay": false,
         "loop": false,
         "controls": true,
-        "preload": "none"
+        "preload": "metadata",
+        "loading": "eager",
+        "fetchPriority": "high"
       }
     },
     "pain": {
@@ -168,7 +170,7 @@
           "caption": "真实产品演示 · 完成结果与 AI 任务页衔接",
           "media": {
             "type": "video",
-            "src": "videos/agent-capsule-focus.mp4?v=20260824-4",
+            "src": "videos/agent-capsule-focus.mp4?v=20260824-16",
             "mimeType": "video/mp4",
             "poster": "images/agent-capsule-focus-poster.jpg?v=20260824-4",
             "fallbackSrc": "images/agent-capsule-focus-poster.jpg?v=20260824-4",
@@ -205,7 +207,7 @@
             "caption": "收到消息后，首个智能回复随即出现。",
             "media": {
               "type": "video",
-              "src": "videos/smart-reply-full-demo.mp4?v=20260824-7",
+            "src": "videos/smart-reply-full-demo.mp4?v=20260824-16",
               "mimeType": "video/mp4",
               "poster": "images/smart-reply-full-demo-poster.jpg?v=20260824-7",
               "fallbackSrc": "images/smart-reply-full-demo-poster.jpg?v=20260824-7",
@@ -350,9 +352,7 @@
         "label": "联系邮箱",
         "placeholder": "name@example.com",
         "submitLabel": "申请内测",
-        "helper": "当前为本地申请占位，不会提交或保存任何信息。",
-        "validationMessage": "请填写一个有效的邮箱地址。",
-        "demoMessage": "这是本地演示表单，暂未连接提交服务。"
+        "validationMessage": "请填写一个有效的邮箱地址。"
       }
     }
   },
